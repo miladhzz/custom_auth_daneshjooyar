@@ -127,4 +127,6 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'custom_login.MyUser'
 
+Kavenegar_API = '************************************'
+
 
