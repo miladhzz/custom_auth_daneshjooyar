@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import MyUser
 from . import forms
 from . import helper
+from django.contrib import messages
 
 
 def register_view(request):
@@ -53,10 +54,12 @@ def verify(request):
 
             # check otp expiration
             if not helper.check_otp_expiration(user.mobile):
+                messages.error(request, "OTP is expired, please try again.")
                 return HttpResponseRedirect(reverse('register_view'))
 
             if user.otp != int(request.POST.get('otp')):
-                return  HttpResponseRedirect(reverse('register_view'))
+                messages.error(request, "OTP is incorrect.")
+                return HttpResponseRedirect(reverse('verify'))
 
             user.is_active = True
             user.save()
@@ -66,6 +69,7 @@ def verify(request):
         return render(request, 'verify.html', {'mobile': mobile})
 
     except MyUser.DoesNotExist:
+        messages.error(request, "Error accorded, try again.")
         return HttpResponseRedirect(reverse('register_view'))
 
 
