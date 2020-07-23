@@ -6,17 +6,16 @@
   <div id="formContent">
     <div class="fadeIn first">
         <div>
-            <h1>Login / Register</h1>
+            <h2>Login / Register</h2>
         </div>
       <img src="{% static 'images/mobile.png' %}" id="icon" alt="User Icon" width="150"/>
     </div>
     <form action="." method="post">
-      <input type="text" id="login" required class="fadeIn second" name="mobile" placeholder="Enter Mobile">
-      <input type="submit" class="fadeIn fourth" value="Login / Register">
+        {% csrf_token %}
+      <input type="text"  required class="fadeIn second" name="mobile" placeholder="Enter Mobile">
+      <input type="submit" class="fadeIn fourth" value="Submit">
     </form>
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Change Mobile</a>
-    </div>
+
   </div>
 </div>
 {% endblock %}

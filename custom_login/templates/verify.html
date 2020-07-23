@@ -1,17 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Verify</title>
-</head>
-<body>
-<form action="." method="post">
-    {% csrf_token %}
-    <label for="mobile">Mobile: </label>
-    <input type="text" name="mobile" readonly value="{{ mobile }}"/>
-    <label for="otp">OTP: </label>
-    <input type="number" name="otp"/>
-    <input type="submit" value="Check OTP">
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+        <div>
+            <h2>Login / Register</h2>
+        </div>
+      <img src="{% static 'images/otp.png' %}" id="icon" alt="User Icon" width="150"/>
+    </div>
+    <form action="." method="post">
+        {% csrf_token %}
+        <input type="text" value="{{ mobile }}" readonly disabled class="fadeIn second" name="mobile" >
+        <input type="text"  required class="fadeIn second" name="otp"  placeholder="Enter OTP">
+        <input type="submit" class="fadeIn fourth" value="Check OTP">
+    </form>
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Change Mobile</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
