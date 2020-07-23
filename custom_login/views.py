@@ -18,8 +18,9 @@ def register_view(request):
                 # send otp
                 otp = helper.get_random_otp()
                 # helper.send_otp(mobile, otp)
-                helper.send_otp_soap(mobile, otp)
+                # helper.send_otp_soap(mobile, otp)
                 # save otp
+                print(otp)
                 user.otp = otp
                 user.save()
                 request.session['user_mobile'] = user.mobile
@@ -32,8 +33,9 @@ def register_view(request):
                 # send otp
                 otp = helper.get_random_otp()
                 # helper.send_otp(mobile, otp)
-                helper.send_otp_soap(mobile, otp)
+                # helper.send_otp_soap(mobile, otp)
                 # save otp
+                print(otp)
                 user.otp = otp
                 user.is_active = False
                 user.save()
@@ -43,8 +45,29 @@ def register_view(request):
 
 
 def verify(request):
-    mobile = request.session.get('user_mobile')
-    return render(request, 'verify.html', {'mobile': mobile})
+    try:
+        mobile = request.session.get('user_mobile')
+        user = MyUser.objects.get(mobile = mobile)
+
+        if request.method == "POST":
+
+            # check otp expiration
+            if not helper.check_otp_expiration(user.mobile):
+                return HttpResponseRedirect(reverse('register_view'))
+
+            if user.otp != int(request.POST.get('otp')):
+                return  HttpResponseRedirect(reverse('register_view'))
+
+            user.is_active = True
+            user.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse('dashboard'))
+
+        return render(request, 'verify.html', {'mobile': mobile})
+
+    except MyUser.DoesNotExist:
+        return HttpResponseRedirect(reverse('register_view'))
+
 
 # def mobile_login(request):
 #     if request.method == "POST":

@@ -7,7 +7,9 @@
 <body>
 <form action="." method="post">
     {% csrf_token %}
-    <input type="mobile" name="mobile" readonly value="{{ mobile }}"/>
+    <label for="mobile">Mobile: </label>
+    <input type="text" name="mobile" readonly value="{{ mobile }}"/>
+    <label for="otp">OTP: </label>
     <input type="number" name="otp"/>
     <input type="submit" value="Check OTP">
 </form>
