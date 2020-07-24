@@ -4,6 +4,8 @@ from random import randint
 from zeep import Client
 from . import models
 import datetime
+import time
+from background_task import background
 
 
 def send_otp(mobile, otp):
@@ -24,7 +26,10 @@ def send_otp(mobile, otp):
         print(e)
 
 
+@background(schedule=10)
 def send_otp_soap(mobile, otp):
+
+    time.sleep(10)
     client = Client('http://api.kavenegar.com/soap/v1.asmx?WSDL')
     receptor = [mobile, ]
 
@@ -63,7 +68,7 @@ def check_otp_expiration(mobile):
         diff_time = now - otp_time
         print('OTP TIME: ', diff_time)
 
-        if diff_time.seconds > 30:
+        if diff_time.seconds > 120:
             return False
         return True
 

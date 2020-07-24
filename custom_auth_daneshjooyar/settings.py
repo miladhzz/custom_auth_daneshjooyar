@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'custom_login.apps.CustomLoginConfig',
+    'background_task',
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,6 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'custom_login.MyUser'
 
-Kavenegar_API = '************************************'
+Kavenegar_API = '*****************************************************'
 
 

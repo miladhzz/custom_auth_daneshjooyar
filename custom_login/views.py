@@ -19,7 +19,7 @@ def register_view(request):
                 # send otp
                 otp = helper.get_random_otp()
                 # helper.send_otp(mobile, otp)
-                # helper.send_otp_soap(mobile, otp)
+                helper.send_otp_soap(mobile, otp)
                 # save otp
                 print(otp)
                 user.otp = otp
@@ -34,7 +34,7 @@ def register_view(request):
                 # send otp
                 otp = helper.get_random_otp()
                 # helper.send_otp(mobile, otp)
-                # helper.send_otp_soap(mobile, otp)
+                helper.send_otp_soap(mobile, otp)
                 # save otp
                 print(otp)
                 user.otp = otp
